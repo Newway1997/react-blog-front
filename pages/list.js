@@ -1,10 +1,11 @@
 import Head from "next/head";
-import Link from "next/link";
 import Header from "../components/Header";
-import { Row, Col, List } from "antd";
-import React, { useState } from "react";
-import "../public/style/pages/index.css";
+import { Row, Col, List, Breadcrumb } from "antd";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import "../public/style/pages/list.css";
+import axios from "axios";
+import servicePath from "../config/aipUrl";
 import {
   CalendarOutlined,
   FolderOutlined,
@@ -12,13 +13,14 @@ import {
 } from "@ant-design/icons";
 import Author from "../components/Author";
 import Advert from "../components/Advert";
-import axios from "axios";
-import servicePath from "../config/aipUrl";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
-const Home = props => {
+const MyList = props => {
   const [mylist, setMyList] = useState(props.data);
+  useEffect(() => {
+    setMyList(props.data);
+  }, [props.data]);
   const renderer = new marked.Renderer();
   marked.setOptions({
     renderer: renderer,
@@ -42,19 +44,23 @@ const Home = props => {
         <Header></Header>
         <Row className="comm-main" type="flex" justify="center">
           <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
+            <div className="bread-div">
+              <Breadcrumb>
+                <Breadcrumb.Item>
+                  <a href="/">首页</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <a>视频教程</a>
+                </Breadcrumb.Item>
+              </Breadcrumb>
+            </div>
             <List
               header={<div>最新日志</div>}
               itemLayout="vertical"
               dataSource={mylist}
               renderItem={item => (
                 <List.Item>
-                  <div className="list-title">
-                    <Link
-                      href={{ pathname: "/detail", query: { id: item.id } }}
-                    >
-                      <a>{item.title}</a>
-                    </Link>
-                  </div>
+                  <div className="list-title">{item.title}</div>
                   <div className="list-icon">
                     <span>
                       <CalendarOutlined />
@@ -88,12 +94,14 @@ const Home = props => {
     </div>
   );
 };
-Home.getInitialProps = async () => {
+MyList.getInitialProps = async context => {
+  let id = context.query.id;
+
   const promise = new Promise(resolve => {
-    axios.get(servicePath.getArticleList).then(res => {
+    axios.get(servicePath.getArticleListByType + id).then(res => {
       resolve(res.data);
     });
   });
   return await promise;
 };
-export default Home;
+export default MyList;
