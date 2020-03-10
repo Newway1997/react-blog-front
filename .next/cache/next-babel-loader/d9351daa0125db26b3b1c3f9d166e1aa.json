@@ -1,1 +1,0 @@
-{"ast":null,"code":"var ipUrl = \"http://127.0.0.1:7002/default/\";\nvar servicePath = {\n  getArticleList: ipUrl + \"getArticleList\",\n  getArticleById: ipUrl + \"getArticleById/\",\n  getTypeInfo: ipUrl + \"getTypeInfo\",\n  getArticleListByType: ipUrl + \"getArticleListByType/\"\n};\nexport default servicePath;","map":null,"metadata":{},"sourceType":"module"}
