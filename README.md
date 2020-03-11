@@ -1,30 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+该项目基于 [Next.js](https://nextjs.org/)， 由[`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app)创建
 
-## Getting Started
+## 简介
 
-First, run the development server:
+react-blog 是前端基于 react，后端基于 egg.js 的一个博客项目。
+项目分为三部分，即三个小项目，均可以在我的 github 中下载。
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- react-blog-front 博客前端
+- react-blog-back 博客后端，负责数据存储响应等逻辑
+- react-blog-mng 管理端，管理博客
+  数据库使用的是 mysql，库名为 react-blog，相应的表结构文件可查看 react-blog-back 项目根目录下的 react-blog.sql 文件
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**执行** `npm start`
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+服务器将运行在 [http://localhost:3000](http://localhost:3000)
