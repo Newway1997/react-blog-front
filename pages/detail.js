@@ -8,15 +8,16 @@ import {
 } from "@ant-design/icons";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../public/style/pages/detail.css";
 import MarkNav from "markdown-navbar";
 import axios from "axios";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
-import servicePath from '../config/aipUrl'
+import * as articleApi from "../api/articleApi";
+import "../public/style/pages/detail.css";
+import Link from "next/link";
 const Detail = props => {
-  const data = props.data[0];
+  const data = props.data;
   const renderer = new marked.Renderer();
   marked.setOptions({
     renderer: renderer,
@@ -39,24 +40,28 @@ const Detail = props => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Header></Header>
+        <Header id={data.typeId}></Header>
         <Row className="comm-main" type="flex" justify="center">
           <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
             <div className="bread-div">
               <Breadcrumb>
                 <Breadcrumb.Item>
-                  <a href="/">首页</a>
+                  <Link href="/">
+                    <a>首页</a>
+                  </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <a>视频教程</a>
+                  <Link href={"/list?id=" + data.typeId}>
+                    <a>{data.typeName}</a>
+                  </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <a>xxxx</a>
+                  <a>{data.title}</a>
                 </Breadcrumb.Item>
               </Breadcrumb>
             </div>
             <div className="detail-title">{data.title}</div>
-            <div className="list-icon center">
+            <div className="article-info center">
               <span>
                 <CalendarOutlined />
                 {data.addTime}
@@ -72,7 +77,7 @@ const Detail = props => {
             </div>
             <div
               className="detail-content"
-              dangerouslySetInnerHTML={{__html:html}}
+              dangerouslySetInnerHTML={{ __html: html }}
             ></div>
           </Col>
           <Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>
@@ -97,14 +102,10 @@ const Detail = props => {
 };
 Detail.getInitialProps = async context => {
   let id = context.query.id;
-  const promise = new Promise(resolve => {
-    axios
-      .get(servicePath.getArticleById + id)
-      .then(res => {
-        resolve(res.data);
-      });
-  });
-  return await promise;
+  //埋点，增加观看数
+  await articleApi.addViewCount(id);
+  const res = await articleApi.getArticleById(id);
+  return res.data;
 };
 
 export default Detail;

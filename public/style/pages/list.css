@@ -1,17 +1,30 @@
+.bread-div{
+  padding-left: .5rem;
+}
+.list-header {
+  font-size: 1.5rem;
+  padding: 0 0.5rem;
+}
 .list-title {
-    font-size: 1.3rem;
-    color: #1e90ff;
-    padding: 0 0.5rem;
-  }
-  .list-context {
-    color: #777;
-    padding: 0.5rem;
-  }
-  .list-icon {
-    padding: 0.5rem;
-    color: #aaa;
-  }
-  .list-icon span {
-    display: inline-block;
-    padding-right: 10px;
-  }
+  font-size: 1.3rem;
+  color: #1e90ff;
+  padding: 0 0.5rem;
+}
+.list-title a{
+  vertical-align: middle;
+}
+.list-info {
+  padding-left: 0.5rem;
+  color: #aaa;
+}
+.list-info > span {
+  display: inline-block;
+  padding-right: 2rem;
+}
+.list-info .anticon {
+  padding-right: 0.3rem;
+}
+.list-context {
+  color: #777;
+  padding: 0.5rem;
+}

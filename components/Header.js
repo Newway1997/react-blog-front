@@ -3,17 +3,20 @@ import "../public/style/components/header.css";
 import { Row, Col, Menu } from "antd";
 import * as Icon from "@ant-design/icons";
 import Router from "next/router";
-import Link from "next/link";
-import axios from "axios";
-import servicePath from "../config/aipUrl";
-export default function() {
+import * as articleApi from "../api/articleApi";
+function Header({ id = "" }) {
   const [navArr, setNavArr] = useState([]);
+  id = id.toString();
+  const [selectedKeys, setSelectedKeys] = useState(id || "0");
+  //id变化改变selectedKeys
+  useEffect(() => {
+    setSelectedKeys(id || "0");
+  }, [id]);
   useEffect(() => {
     const fetchData = async () => {
-      let result = await axios(servicePath.getTypeInfo).then(res => {
-        return res.data.data;
-      });
-      setNavArr(result);
+      let result = await articleApi.getTypeInfo();
+      let data = result.data.data;
+      setNavArr(data);
     };
     fetchData();
   }, []);
@@ -32,7 +35,11 @@ export default function() {
           <span className="header-text">一个前端</span>
         </Col>
         <Col xs={0} sm={0} md={14} lg={8} xl={6}>
-          <Menu mode="horizontal" onClick={handleClick}>
+          <Menu
+            mode="horizontal"
+            selectedKeys={selectedKeys}
+            onClick={handleClick}
+          >
             <Menu.Item key="0">
               <Icon.HomeOutlined />
               首页
@@ -52,3 +59,4 @@ export default function() {
     </div>
   );
 }
+export default Header;
