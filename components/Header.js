@@ -4,6 +4,7 @@ import { Row, Col, Menu } from "antd";
 import * as Icon from "@ant-design/icons";
 import Router from "next/router";
 import * as articleApi from "../api/articleApi";
+import Link from "next/link";
 function Header({ id = "" }) {
   const [navArr, setNavArr] = useState([]);
   id = id.toString();
@@ -31,7 +32,11 @@ function Header({ id = "" }) {
     <div className="header">
       <Row type="flex" justify="center">
         <Col xs={24} sm={24} md={10} lg={15} xl={12}>
-          <span className="header-logo">Newway</span>
+          <Link href={{ pathname: "/" }}>
+            <a>
+              <span className="header-logo">Newway</span>
+            </a>
+          </Link>
           <span className="header-text">一个前端</span>
         </Col>
         <Col xs={0} sm={0} md={14} lg={8} xl={6}>
