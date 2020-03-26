@@ -33,7 +33,7 @@ marked.setOptions({
 let size = 5;
 const Home = props => {
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(props.data.length < props.total);
   const [articleList, setArticleList] = useState(props.data);
   const [page, setPage] = useState(1);
 
